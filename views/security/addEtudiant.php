@@ -1,4 +1,4 @@
-<h3>Enregistrer un etudiant</h3>
+<h3 class="text-center mb-3">Enregistrer un etudiant</h3>
 <form>
   <div class="form-row">
     <div class="col-md-4 mb-3">
@@ -17,15 +17,15 @@
     </div>
   </div>
   <div class="form-row">
-    <div class="col-md-6 mb-3">
+    <div class="col-md-4 mb-3">
       <label for="validationDefault03">Email</label>
       <input type="email" class="form-control" id="validationDefault03" placeholder="Email" required>
     </div>
-    <div class="col-md-3 mb-3">
+    <div class="col-md-4 mb-3">
       <label for="validationDefault04">Telephone</label>
       <input type="phone" class="form-control" id="validationDefault04" placeholder="Telephone" required>
     </div>
-    <div class="col-md-3 mb-3">
+    <div class="col-md-4 mb-3">
       <label for="validationDefault05">Adresse</label>
       <input type="text" class="form-control" id="validationDefault05" placeholder="Adresse" required>
     </div>
@@ -36,5 +36,5 @@
 		<option value="text">Etudiants non Boursier</option>
 	</select>
     <div class="w-100"></div>
-  <button class="btn btn-primary align-right mt-3" type="submit">Enregistrer</button>
+  <button class="btn btn-primary align-right mt-3" type="button">Enregistrer</button>
 </form>

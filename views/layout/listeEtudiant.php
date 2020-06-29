@@ -1,56 +1,35 @@
 <div class="mt-3" id="listeEtudiant">
         <div class="col-12">
-            <select class="form-control col-12 col-md-4 d-inline" name="select" id="select_type">
-                    <option selected="" value="">Afficher par</option>
-                    <option value="checkbox">Etudiants Boursiers</option>
-                    <option value="radio">Etudiants logés</option>
-                    <option value="text">Etudiants non logés</option>
+                <select class="form-control col-12 col-md-4 mb-2 d-inline" name="etd_search" id="select_bourse">
+                    <option selected="" disabled value="">Afficher par</option>
+                    <option value="loge">Etudiants Boursiers logés</option>
+                    <option value="non_loge">Etudiants Boursiers non logés</option>
+                    <option value="non_boursier">Etudiants non Boursiers</option>
                 </select>
-            <table class="table tEtd">
+                <label class="ml-3 border rouded" for="matr_search">Recherche Manuelle:&nbsp</label>&nbsp<input type="text" id="matr_search">
+                <div class="mesgRqet d-inline ml-1 text-white bg-primary rounded"  style="width:auto"></div>
+                <table class="table tEtd">
                 <thead>
-                    <tr class="text-center">
-                        <th>Matricule</th>
-                        <th>Noms</th>
-                        <th>Prenoms</th>
-                        <th>Date naiss</th>
-                        <th>Email</th>
-                        <th>Telephone</th>
-                        <th>Bourse</th>
-                        <th>Logement</th>
-                    </tr>
-                </thead>
-                <tbody id="tbody">
-                    <tr class="text-center">
-                        <td>2014 FA OM 0001</td>
-                        <td>Ngom</td>
-                        <td>Fallou</td>
-                        <td>1996-06-21</td>
-                        <td>fallou@gmail.com</td>
-                        <td>77 000 00 00</td>
-                        <td>40000</td>
-                        <td>ch 001 0001</td>
-                    </tr>
-                    <tr class="text-center">
-                        <td>2014 FA OM 0001</td>
-                        <td>Ngom</td>
-                        <td>Fallou</td>
-                        <td>1996-06-21</td>
-                        <td>fallou@gmail.com</td>
-                        <td>77 000 00 00</td>
-                        <td>Non boursier</td>
-                        <td>Non logé</td>
-                    </tr>
-                    <tr class="text-center">
-                        <td>2014 FA OM 0001</td>
-                        <td>Ngom</td>
-                        <td>Fallou</td>
-                        <td>1996-06-21</td>
-                        <td>fallou@gmail.com</td>
-                        <td>77 000 00 00</td>
-                        <td>20000</td>
-                        <td>Non logé</td>
-                    </tr>
-                </tbody>
-            </table>
+                        <tr class="" style="position:static;">
+                            <th>Matricule</th>
+                            <th>Noms</th>
+                            <th>Prenoms</th>
+                            <th class="dtns">Date naiss</th>
+                            <th class="eml">Email</th>
+                            <th class="tlphn">Telephone</th>
+                            <th class="brse">Bourse</th>
+                            <th class="chbr">Chambre</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            <div class="tableDiv" style="height:300px;overflow-y: scroll;scrollbar-width: thin;">
+                <table class="table tEtd">
+                    
+                    <tbody id="tbody">
+                        
+                    </tbody>
+                </table>
+            </div>
          </div>
 </div>
