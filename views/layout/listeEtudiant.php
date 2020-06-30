@@ -8,23 +8,26 @@
                 </select>
                 <label class="ml-3 border rouded" for="matr_search">Recherche Manuelle:&nbsp</label>&nbsp<input type="text" id="matr_search">
                 <div class="mesgRqet d-inline ml-1 text-white bg-primary rounded"  style="width:auto"></div>
-                <table class="table tEtd">
+              <div style="overflow: auto;scrollbar-width: thin;">
+              <table class="table tEtd table-striped">
                 <thead>
-                        <tr class="" style="position:static;">
+                        <tr class="">
                             <th>Matricule</th>
                             <th>Noms</th>
                             <th>Prenoms</th>
                             <th class="dtns">Date naiss</th>
-                            <th class="eml">Email</th>
+                            <th class="email">Email</th>
                             <th class="tlphn">Telephone</th>
                             <th class="brse">Bourse</th>
                             <th class="chbr">Chambre</th>
+                            <th class="adr">Adresse</th>
                             <th></th>
                         </tr>
                     </thead>
                 </table>
+              </div>
             <div class="tableDiv" style="height:300px;overflow-y: scroll;scrollbar-width: thin;">
-                <table class="table tEtd">
+                <table class="table tEtd table-striped">
                     
                     <tbody id="tbody">
                         

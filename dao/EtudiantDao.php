@@ -20,8 +20,22 @@ class EtudiantDao extends Manager {
         Valeur Modifiée':'Annulé';
     }
 
-    public function findByType($type){
-        $sql="select * from $this->tableName where type='$type' ";
+
+        
+    public function findAll(){
+        $sql="select * from $this->tableName";
+        $data=$this->executeSelect($sql);
+        return $data;
+    }
+
+    public function findALLStudents($limit,$offset){
+        $sql="select * from $this->tableName LIMIT $limit OFFSET $offset";
+        $data=$this->executeSelect($sql);
+        return $data;
+    }
+
+    public function findByType($type,$limit,$offset){
+        $sql="select * from $this->tableName where type='$type'  LIMIT $limit OFFSET $offset";
         $data=$this->executeSelect($sql);
         return count($data)==1?$data[0]:$data;
     }

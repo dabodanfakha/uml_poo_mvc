@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    var url = "http://localhost:88/MesTravaux/live_poo/";
+    var url = "http://binome.alwaysdata.net";
     //click bouton valider ajout chambre
     $('.addChbr').click(function(){
         // alert('ok');
@@ -25,7 +25,7 @@ $(document).ready(function(){
     /*================================================================
 	------------------PARTIE LISTE DES ETUDIANTS------------------------
 	=================================================================*/
-    var limit = 5;
+    var limit = 7;
     var offset = 0;
  
 
@@ -45,17 +45,16 @@ $(document).ready(function(){
 		.done(data =>{
             addLine(data);
             // alert(data)
+            offset += 7;
         })
     }
-    
-
 
 	/*---------------------------------
 	----Ajouter de nouvelles lignes-----
 	-----------------------------------*/ 
 	function addLine(values){
         console.log(values);
-        $("#tbody").empty();
+        //$("#tbody").empty();
         let line;
 		for (let i = 0; i < values.length; i++){
 			line = `
@@ -63,11 +62,12 @@ $(document).ready(function(){
                     <td class="ma" id = matricule-${values[i].id}>${values[i].mat}</td>
                     <td class="nm" id = t-nom-${values[i].id}>${values[i].nom}</td>
                     <td class="prn" id = t-prenom-${values[i].id}>${values[i].prenom}</td>
-					<td class = dtns id = d-date_naiss-${values[i].id}>${values[i].dateN}</td>
-					<td class = eml id = t-email-${values[i].id}>${values[i].email}</td>
-					<td class = tlphn id = t-tel-${values[i].id}>${values[i].tel}</td>
-					<td class = brse id = t-bourse-${values[i].id}>${values[i].bourse}</td>
-                    <td class = chbr id = t-chambre-${values[i].id}>${values[i].numCh}</td>
+					<td class = "dtns" id = d-date_naiss-${values[i].id}>${values[i].dateN}</td>
+					<td class = "email" id = t-email-${values[i].id}>${values[i].email}</td>
+					<td class = "tlphn" id = t-tel-${values[i].id}>${values[i].tel}</td>
+					<td class = "brse" id = t-bourse-${values[i].id}>${values[i].bourse}</td>
+                    <td class = "chbr" id = t-chambre-${values[i].id}>${values[i].numCh}</td>
+                    <td class = "adr" id = t-chambre-${values[i].id}>${values[i].adr}</td>
                     <td><button style="background-color:#C79DD3;" class="fa fa-trash-o suppr" aria-hidden="true"></button></td>
                 </tr>`;
             $("#tbody").append(line);
@@ -76,6 +76,7 @@ $(document).ready(function(){
     }
 
     if (!$('#select_bourse').val()) {
+        offset = 0;
         listeEtudiant("etudiant");
     }
 
@@ -110,7 +111,7 @@ $(document).ready(function(){
         objEnCours=$(this);
         //console.log($(this).children().clone());
         type=tab[0];
-        clone=type==="i"?$(this).children().clone():$(this).text();
+        clone=type==="d"?$(this).children().clone():$(this).text();
     //    alert(clone)
         if((type==='t') || (type ==='d')){
             const input=getInput(tab,clone);
@@ -123,8 +124,13 @@ $(document).ready(function(){
         
         const {id,value} = e.target;
         const tab=id.split("-");
-        if(type==='t') {
+        if(type==='t' || type === 'd') {
             if(value.trim() != ""){
+                if (tab[0]==='email' && !isEmail(value)) {
+                    $('.mesgRqet').addClass("p-1 bg-danger");
+                    $('.mesgRqet').text('Email non valide');
+                    return false;
+                }
                 $(this).html(value); 
                 const data={
                     "update":"etudiant",
@@ -165,7 +171,18 @@ $(document).ready(function(){
         return input;
     }
 
-    //    Click sur le bouton supprimer
+    /*--------------------------------------------
+        Test de l'email
+    ----------------------------------------------*/
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
+
+        
+    /*--------------------------------------------
+        Click sur le bouton supprimer
+    ----------------------------------------------*/
     $(document).on("click",".suppr", function () {
 
         // alert($(this).attr('id'))
@@ -206,12 +223,19 @@ $(document).ready(function(){
 ----------------------------------------------*/ 
 $(document).ready(function(){
     $('#select_bourse').change(function() {
+        offset = 0;
         // alert($(this).val())
         let type = $(this).val();
+        $("#tbody").empty();
         listeEtudiant(type);
+        
     });
 })
 
+
+/*--------------------------------------------
+    Recherche manuelle
+----------------------------------------------*/
 $(document).ready(function(){
     $("#matr_search").on("keyup", function() {
       var value = $(this).val().toLowerCase();
@@ -221,4 +245,41 @@ $(document).ready(function(){
     });
   });
 
+ 
+    /*--------------------------------------------
+        Scroll
+    ----------------------------------------------*/
+    const scrollZone = $('.tableDiv')
+    scrollZone.scroll(function(){
+        //console.log(scrollZone[0].clientHeight)
+        const st = scrollZone[0].scrollTop;
+        const sh = scrollZone[0].scrollHeight;
+        const ch = scrollZone[0].clientHeight;
+    
+        //console.log(st,sh, ch);
+        
+        if(sh-st <= ch){
+            if (!$('#select_bourse').val()) {
+                listeEtudiant("etudiant");
+            }
+            else{
+                listeEtudiant($('#select_bourse').val());
+            };
+        }        
+    })
 })
+
+    /*--------------------------------------------
+        Inscription etudiant
+    ----------------------------------------------*/
+$(document).ready(function(){
+    $('#select_type_etd').change(function(){
+        $('.bourse').removeClass('d-none');
+      if($(this).val() === 'bourseir_loge'){
+          $('.chambre').removeClass('d-none');
+      }
+      else{
+        $('.chambre').addClass('d-none');
+      }
+    })
+  })

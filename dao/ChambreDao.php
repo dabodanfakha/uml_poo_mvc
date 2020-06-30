@@ -7,6 +7,7 @@ class ChambreDao extends Manager {
         $this->className="Chambre";
     }
 
+
     public function add($obj){
         try{
             $n = $obj -> getNumChambre();

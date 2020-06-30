@@ -9,7 +9,7 @@ abstract class Manager implements IDao{
       //Connexion est fermée
       if($this->pdo==null){
           try{
-            $this->pdo = new PDO("mysql:host=localhost;dbname=binome","ldab","mypassword");
+            $this->pdo = new PDO("mysql:host=mysql-binome.alwaysdata.net;dbname=binome_dd","binome","wFVAte64NtDWRtV");
             $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_ASSOC);
           }catch(PDOException $ex){
              die("Erreur de Connexion");
@@ -44,6 +44,15 @@ abstract class Manager implements IDao{
           return $nbreLigne != 0 ?$nbreLigne:"Erreur";
    }
 
+ 
+
+  
+   public function findChambre($limit,$offset){
+    $sql = "SELECT * FROM `chambre` LIMIT {$limit} OFFSET {$offset}";
+    $res = $this->executeSelect($sql);
+    return $res;
+    }
+
   public function executeSelect($sql){
     $this->getConnexion();
     //Traitement
@@ -71,7 +80,10 @@ public function findById($id){
 
 public function delete($id,$nomId){
     $sql="delete from $this->tableName where $nomId = $id";
-    return $this->executeUpdate($sql)!=0?'Supprimé(e)':'';
+    return $this->executeUpdate($sql)!=0?'Supprimé(e)':'impossible de supprimer';
+
+    //$a = 'A' === 'a' ? 'ils sont egal' : 'ils sont diff';
+    //$a = isset($_POST['id']) ? 1 : 2; condition ternaire
 }
 
 

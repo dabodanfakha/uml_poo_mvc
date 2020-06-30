@@ -18,12 +18,13 @@ class AdminController extends Controller{
     
     public function liste(){
           if (isset($_POST['type'])) {
+               extract($_POST);
                $stdt = new EtudiantDao();
-               if ($_POST['type'] ==='etudiant') {
-                    $etdt = $stdt -> findALL();
+               if ($type ==='etudiant') {
+                    $etdt = $stdt -> findALLStudents($limit,$offset);
                }
                else {
-                    $etdt = $stdt -> findByType($_POST['type']);
+                    $etdt = $stdt -> findByType($type,$limit,$offset);
                }
                $etd = [];
                $i = 0;
@@ -66,7 +67,33 @@ class AdminController extends Controller{
                echo $res;
           }
      }
+
+     public function supprimerChambre(){
+          if (isset($_POST)) {
+               $id=$_POST['id'];
+              // echo $_POST['id'];
+              $this -> dao = new ChambreDao();
+              $recevoir = $this -> dao -> delete($id,"NUM_CHAMBRE");
+                echo $recevoir ;
+          } 
+     }
     
+     public function paginer(){
+          if (isset($_POST['liste'])) {
+               extract($_POST);// a expliquer apres
+               $this -> dao = new ChambreDao();
+               $tab = $this -> dao -> findChambre($limit,$offset);
+               $ch = [];
+               $i = 0;
+               foreach ($tab as $key => $value) {
+                    $ch[$i]['nb'] = $value -> getNumBat();
+                    $ch[$i]['nc'] = $value -> getNumChambre();
+                    $ch[$i]['tc'] = $value -> getTypeChambre();
+                    $i++;
+               }
+               echo json_encode($ch);
+          }
+     }
 
     public function listeEtudiant(){
          $this->view="listeEtudiant";
@@ -99,5 +126,5 @@ class AdminController extends Controller{
           $this -> data_view['title']= 'ajout nouvelle chambre';
           $this->render();
      }
-
+ 
 }
